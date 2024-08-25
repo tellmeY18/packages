@@ -121,6 +121,8 @@ jobs:
           cp /workspace/swayfx-bookworm-testrelease/build/sway/desktop/shaders/* /workspace/Debian/swayfx/usr/local/share/desktop/shaders/
 
           # Build the Debian package
+          ls /workspace
+          ls /workspace/Debian/swayfx
           cd /workspace/
           dpkg-deb --build /workspace/Debian/swayfx
           "
