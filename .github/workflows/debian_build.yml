@@ -134,7 +134,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: swayfx-deb
-          path: /workspace/Debian/swayfx.deb
+          path: Debian/swayfx.deb
 
   make-release:
     needs: build
