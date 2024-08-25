@@ -120,6 +120,8 @@ jobs:
           # Copy shaders
           cp /workspace/swayfx-bookworm-testrelease/build/sway/desktop/shaders/* /workspace/Debian/swayfx/usr/local/share/desktop/shaders/
 
+          cd /workspace
+
           # Build the Debian package
           dpkg-deb --build Debian/swayfx
           "
