@@ -130,3 +130,40 @@ jobs:
           cd /workspace/
           dpkg-deb --build /workspace/Debian/swayfx
           "
+      - name: Upload SwayFX Debian package
+        uses: actions/upload-artifact@v3
+        with:
+          name: swayfx-deb
+          path: /workspace/swayfx.deb
+
+  make-release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Download SwayFX Debian package
+        uses: actions/download-artifact@v3
+        with:
+          name: swayfx-deb
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: release-${{ github.run_number }}
+          release_name: SwayFX Release ${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./swayfx.deb
+          asset_name: swayfx.deb
+          asset_content_type: application/vnd.debian.binary-package
