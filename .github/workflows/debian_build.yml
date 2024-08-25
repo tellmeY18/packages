@@ -1,0 +1,101 @@
+# This is a github action file that will build a debian package for the project
+# steps for building the package
+# start a debian 12 container
+# make sure the present working directory is the root of the project
+# download the project release from github using the url  https://github.com/WillPower3309/swayfx/archive/refs/tags/0.1.tar.gz
+# extract the project release
+# install the build dependencies for the project
+# Build-Depends: libpcre3-dev, meson, wayland-protocols, libwayland-dev, libpcre3-dev, libegl-dev, libpcre2-dev, libjson-c-dev, libpango1.0-dev, libcairo2-dev, libxkbcommon-dev, libgdk-pixbuf-2.0-dev, libgles2-mesa-dev, libevdev-dev, libinput-dev, libdrm-dev, libwlroots-dev, scdoc, git, wget, cmake
+
+# build the project using meson
+# compile the project using ninja
+
+# Create the debian package direc
+
+# mkdir -p Debian/swayfx/{usr/local/{bin,etc,share/{man/man{1,5,7},wayland-sessions,backgrounds,zsh/site-functions,bash-completion/completions,fish/vendor_completions.d}}}
+
+# cp /usr/local/bin/sway* Debian/swayfx/usr/local/bin/
+# cp -R /usr/local/etc/sway Debian/swayfx/usr/local/etc/
+# cp /usr/local/share/man/man1/sway* Debian/swayfx/usr/local/share/man/man1/
+# cp /usr/local/share/man/man5/sway* Debian/swayfx/usr/local/share/man/man5/
+# cp /usr/local/share/man/man7/sway* Debian/swayfx/usr/local/share/man/man7/
+# cp /usr/local/share/wayland-sessions/sway.desktop Debian/swayfx/usr/local/share/wayland-sessions/
+# cp -R /usr/local/share/backgrounds/sway Debian/swayfx/usr/local/share/backgrounds/
+# cp /usr/local/share/zsh/site-functions/_sway* Debian/swayfx/usr/local/share/zsh/site-functions/
+# cp /usr/local/share/bash-completion/completions/sway* Debian/swayfx/usr/local/share/bash-completion/completions/
+# cp /usr/local/share/fish/vendor_completions.d/sway*.fish Debian/swayfx/usr/local/share/fish/vendor_completions.d/
+
+# perform dpkg-deb --build Debian/swayfx
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up container for building Debian package
+        run: |
+          docker run -v ${{ github.workspace }}:/workspace -w /workspace debian:12 /bin/bash -c "
+          # Ensure working directory is project root
+          cd /workspace
+
+          # Download project release from GitHub
+          wget https://github.com/WillPower3309/swayfx/archive/refs/tags/0.1.tar.gz
+          tar -xzf 0.1.tar.gz
+          cd swayfx-0.1
+
+          # Install build dependencies
+          apt-get update
+          apt-get install -y \
+            libpcre3-dev \
+            meson \
+            wayland-protocols \
+            libwayland-dev \
+            libpcre3-dev \
+            libegl-dev \
+            libpcre2-dev \
+            libjson-c-dev \
+            libpango1.0-dev \
+            libcairo2-dev \
+            libxkbcommon-dev \
+            libgdk-pixbuf-2.0-dev \
+            libgles2-mesa-dev \
+            libevdev-dev \
+            libinput-dev \
+            libdrm-dev \
+            libwlroots-dev \
+            scdoc \
+            git \
+            wget \
+            cmake
+
+          # Build the project using Meson
+          meson build
+          cd build
+          ninja
+
+          # Create Debian package directory structure
+          mkdir -p Debian/swayfx/usr/local/{bin,etc,share/{man/man{1,5,7},wayland-sessions,backgrounds,zsh/site-functions,bash-completion/completions,fish/vendor_completions.d}}
+
+          # Copy built files into Debian package structure
+          cp /usr/local/bin/sway* Debian/swayfx/usr/local/bin/
+          cp -R /usr/local/etc/sway Debian/swayfx/usr/local/etc/
+          cp /usr/local/share/man/man1/sway* Debian/swayfx/usr/local/share/man/man1/
+          cp /usr/local/share/man/man5/sway* Debian/swayfx/usr/local/share/man/man5/
+          cp /usr/local/share/man/man7/sway* Debian/swayfx/usr/local/share/man/man7/
+          cp /usr/local/share/wayland-sessions/sway.desktop Debian/swayfx/usr/local/share/wayland-sessions/
+          cp -R /usr/local/share/backgrounds/sway Debian/swayfx/usr/local/share/backgrounds/
+          cp /usr/local/share/zsh/site-functions/_sway* Debian/swayfx/usr/local/share/zsh/site-functions/
+          cp /usr/local/share/bash-completion/completions/sway* Debian/swayfx/usr/local/share/bash-completion/completions/
+          cp /usr/local/share/fish/vendor_completions.d/sway*.fish Debian/swayfx/usr/local/share/fish/vendor_completions.d/
+
+          # Build the Debian package
+          dpkg-deb --build Debian/swayfx
+          "
