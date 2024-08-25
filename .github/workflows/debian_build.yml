@@ -80,21 +80,45 @@ jobs:
           meson build
           cd build
           ninja
+          # Create the directory structure for the Debian package
+          mkdir -p /workspace/Debian/swayfx/usr/local/{bin,etc/sway,share/{man/man{1,5,7},wayland-sessions,backgrounds/sway,zsh/site-functions,bash-completion/completions,fish/vendor_completions.d,desktop/shaders}} 
 
-          # Create Debian package directory structure
-          mkdir -p Debian/swayfx/usr/local/{bin,etc,share/{man/man{1,5,7},wayland-sessions,backgrounds,zsh/site-functions,bash-completion/completions,fish/vendor_completions.d}}
-
-          # Copy built files into Debian package structure
-          cp /usr/local/bin/sway* Debian/swayfx/usr/local/bin/
-          cp -R /usr/local/etc/sway Debian/swayfx/usr/local/etc/
-          cp /usr/local/share/man/man1/sway* Debian/swayfx/usr/local/share/man/man1/
-          cp /usr/local/share/man/man5/sway* Debian/swayfx/usr/local/share/man/man5/
-          cp /usr/local/share/man/man7/sway* Debian/swayfx/usr/local/share/man/man7/
-          cp /usr/local/share/wayland-sessions/sway.desktop Debian/swayfx/usr/local/share/wayland-sessions/
-          cp -R /usr/local/share/backgrounds/sway Debian/swayfx/usr/local/share/backgrounds/
-          cp /usr/local/share/zsh/site-functions/_sway* Debian/swayfx/usr/local/share/zsh/site-functions/
-          cp /usr/local/share/bash-completion/completions/sway* Debian/swayfx/usr/local/share/bash-completion/completions/
-          cp /usr/local/share/fish/vendor_completions.d/sway*.fish Debian/swayfx/usr/local/share/fish/vendor_completions.d/
+          # Copy files to the appropriate directories
+          cp /workspace/swayfx-bookworm-testrelease/build/sway/sway /workspace/Debian/swayfx/usr/local/bin/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaymsg/swaymsg /workspace/Debian/swayfx/usr/local/bin/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaybar/swaybar /workspace/Debian/swayfx/usr/local/bin/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaynag/swaynag /workspace/Debian/swayfx/usr/local/bin/
+          cp /workspace/swayfx-bookworm-testrelease/build/config /workspace/Debian/swayfx/usr/local/etc/sway/
+          
+          # Copy man pages
+          cp /workspace/swayfx-bookworm-testrelease/build/sway.1 /workspace/Debian/swayfx/usr/local/share/man/man1/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaymsg.1 /workspace/Debian/swayfx/usr/local/share/man/man1/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaynag.1 /workspace/Debian/swayfx/usr/local/share/man/man1/
+          cp /workspace/swayfx-bookworm-testrelease/build/sway.5 /workspace/Debian/swayfx/usr/local/share/man/man5/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaynag.5 /workspace/Debian/swayfx/usr/local/share/man/man5/
+          cp /workspace/swayfx-bookworm-testrelease/build/sway-bar.5 /workspace/Debian/swayfx/usr/local/share/man/man5/
+          cp /workspace/swayfx-bookworm-testrelease/build/sway-input.5 /workspace/Debian/swayfx/usr/local/share/man/man5/
+          cp /workspace/swayfx-bookworm-testrelease/build/sway-output.5 /workspace/Debian/swayfx/usr/local/share/man/man5/
+          cp /workspace/swayfx-bookworm-testrelease/build/sway-ipc.7 /workspace/Debian/swayfx/usr/local/share/man/man7/
+          cp /workspace/swayfx-bookworm-testrelease/build/swaybar-protocol.7 /workspace/Debian/swayfx/usr/local/share/man/man7/
+          
+          # Copy wayland session file
+          cp /workspace/swayfx-bookworm-testrelease/sway.desktop /workspace/Debian/swayfx/usr/local/share/wayland-sessions/
+          
+          # Copy background files
+          cp /workspace/swayfx-bookworm-testrelease/assets/Sway_Wallpaper_Blue_*.png /workspace/Debian/swayfx/usr/local/share/backgrounds/sway/
+          
+          # Copy zsh completions
+          cp /workspace/swayfx-bookworm-testrelease/completions/zsh/_sway* /workspace/Debian/swayfx/usr/local/share/zsh/site-functions/
+          
+          # Copy bash completions
+          cp /workspace/swayfx-bookworm-testrelease/completions/bash/sway* /workspace/Debian/swayfx/usr/local/share/bash-completion/completions/
+          
+          # Copy fish completions
+          cp /workspace/swayfx-bookworm-testrelease/completions/fish/sway*.fish /workspace/Debian/swayfx/usr/local/share/fish/vendor_completions.d/
+          
+          # Copy shaders
+          cp /workspace/swayfx-bookworm-testrelease/build/sway/desktop/shaders/* /workspace/Debian/swayfx/usr/local/share/desktop/shaders/
 
           # Build the Debian package
           dpkg-deb --build Debian/swayfx
