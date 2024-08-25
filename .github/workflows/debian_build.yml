@@ -46,11 +46,6 @@ jobs:
           # Ensure working directory is project root
           cd /workspace
 
-          # Download project release from GitHub
-          wget https://github.com/WillPower3309/swayfx/archive/refs/tags/0.1.tar.gz
-          tar -xzf 0.1.tar.gz
-          cd swayfx-0.1
-
           # Install build dependencies
           apt-get update
           apt-get install -y \
@@ -75,6 +70,11 @@ jobs:
             git \
             wget \
             cmake
+
+          # Download project release from GitHub
+          wget https://github.com/WillPower3309/swayfx/archive/refs/tags/0.1.tar.gz
+          tar -xzf 0.1.tar.gz
+          cd swayfx-0.1
 
           # Build the project using Meson
           meson build
