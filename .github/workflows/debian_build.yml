@@ -40,6 +40,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
       - name: Set up container for building Debian package
         run: |
           docker run -v ${{ github.workspace }}:/workspace -w /workspace debian:12 /bin/bash -c "
@@ -82,7 +85,7 @@ jobs:
           #cd build
           #ninja
           ## Create the directory structure for the Debian package
-          #mkdir -p /workspace/Debian/swayfx/usr/local/{bin,etc/sway,share/{man/man{1,5,7},wayland-sessions,backgrounds/sway,zsh/site-functions,bash-completion/completions,fish/vendor_completions.d,desktop/shaders}} 
+          #mkdir -p /workspace/Debian/swayfx/usr/local/{bin,etc/sway,share/{man/man{1,5,7},wayland-sessions,backgrounds/sway,zsh/site-functions,bash-completion/completions,fish/vendor_completions.d,desktop/shaders}}
 
           ## Copy files to the appropriate directories
           #cp /workspace/swayfx-bookworm-testrelease/build/sway/sway /workspace/Debian/swayfx/usr/local/bin/
