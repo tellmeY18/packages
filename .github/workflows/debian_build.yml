@@ -122,5 +122,5 @@ jobs:
 
           # Build the Debian package
           cd /workspace/
-          dpkg-deb --build Debian/swayfx
+          dpkg-deb --build /workspace/Debian/swayfx
           "
