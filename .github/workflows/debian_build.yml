@@ -93,7 +93,7 @@ jobs:
           cp /workspace/swayfx-bookworm-testrelease/build/swaybar/swaybar /workspace/Debian/swayfx/usr/local/bin/
           cp /workspace/swayfx-bookworm-testrelease/build/swaynag/swaynag /workspace/Debian/swayfx/usr/local/bin/
           cp /workspace/swayfx-bookworm-testrelease/build/config /workspace/Debian/swayfx/usr/local/etc/sway/
-          
+
           # Copy man pages
           cp /workspace/swayfx-bookworm-testrelease/build/sway.1 /workspace/Debian/swayfx/usr/local/share/man/man1/
           cp /workspace/swayfx-bookworm-testrelease/build/swaymsg.1 /workspace/Debian/swayfx/usr/local/share/man/man1/
@@ -105,22 +105,22 @@ jobs:
           cp /workspace/swayfx-bookworm-testrelease/build/sway-output.5 /workspace/Debian/swayfx/usr/local/share/man/man5/
           cp /workspace/swayfx-bookworm-testrelease/build/sway-ipc.7 /workspace/Debian/swayfx/usr/local/share/man/man7/
           cp /workspace/swayfx-bookworm-testrelease/build/swaybar-protocol.7 /workspace/Debian/swayfx/usr/local/share/man/man7/
-          
+
           # Copy wayland session file
           cp /workspace/swayfx-bookworm-testrelease/sway.desktop /workspace/Debian/swayfx/usr/local/share/wayland-sessions/
-          
+
           # Copy background files
           cp /workspace/swayfx-bookworm-testrelease/assets/Sway_Wallpaper_Blue_*.png /workspace/Debian/swayfx/usr/local/share/backgrounds/sway/
-          
+
           # Copy zsh completions
           cp /workspace/swayfx-bookworm-testrelease/completions/zsh/_sway* /workspace/Debian/swayfx/usr/local/share/zsh/site-functions/
-          
+
           # Copy bash completions
           cp /workspace/swayfx-bookworm-testrelease/completions/bash/sway* /workspace/Debian/swayfx/usr/local/share/bash-completion/completions/
-          
+
           # Copy fish completions
           cp /workspace/swayfx-bookworm-testrelease/completions/fish/sway*.fish /workspace/Debian/swayfx/usr/local/share/fish/vendor_completions.d/
-          
+
           # Copy shaders
           cp /workspace/swayfx-bookworm-testrelease/build/sway/desktop/shaders/* /workspace/Debian/swayfx/usr/local/share/desktop/shaders/
 
@@ -129,4 +129,4 @@ jobs:
           ls /workspace/Debian/swayfx
           cd /workspace/
           dpkg-deb --build /workspace/Debian/swayfx
-          
+          "
