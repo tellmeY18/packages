@@ -2,7 +2,7 @@
 # steps for building the package
 # start a debian 12 container
 # make sure the present working directory is the root of the project
-# download the project release from github using the url  https://github.com/WillPower3309/swayfx/archive/refs/tags/0.1.tar.gz
+# download the project release from github using the url  https://github.com/WillPower3309/swayfx/archive/refs/tags/bookworm-testrelease.tar.gz
 # extract the project release
 # install the build dependencies for the project
 # Build-Depends: libpcre3-dev, meson, wayland-protocols, libwayland-dev, libpcre3-dev, libegl-dev, libpcre2-dev, libjson-c-dev, libpango1.0-dev, libcairo2-dev, libxkbcommon-dev, libgdk-pixbuf-2.0-dev, libgles2-mesa-dev, libevdev-dev, libinput-dev, libdrm-dev, libwlroots-dev, scdoc, git, wget, cmake
@@ -72,9 +72,9 @@ jobs:
             cmake
 
           # Download project release from GitHub
-          wget https://github.com/WillPower3309/swayfx/archive/refs/tags/0.1.tar.gz
-          tar -xzf 0.1.tar.gz
-          cd swayfx-0.1
+          wget https://github.com/WillPower3309/swayfx/archive/refs/tags/bookworm-testrelease.tar.gz
+          tar -xzf bookworm-testrelease.tar.gz
+          cd swayfx-bookworm-testrelease
 
           # Build the project using Meson
           meson build
