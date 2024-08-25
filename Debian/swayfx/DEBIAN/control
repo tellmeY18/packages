@@ -1,0 +1,15 @@
+Package: swayfx
+Version: 0.1
+Section: x11
+Priority: optional
+Architecture: amd64
+Depends: libpcre3, libegl1, libpcre2-8-0, libjson-c5, libpango-1.0-0, libcairo2,libpangocairo-1.0-0, libxkbcommon0, libgdk-pixbuf-2.0-0, libgles2, libevdev2, libinput10, libdrm2, bash-completion, fish, libwlroots10, libwayland-client0, libwayland-cursor0, libwayland-server0
+Build-Depends: libpcre3-dev, meson, wayland-protocols, libwayland-dev, libpcre3-dev, libegl-dev, libpcre2-dev, libjson-c-dev, libpango1.0-dev, libcairo2-dev, libxkbcommon-dev, libgdk-pixbuf-2.0-dev, libgles2-mesa-dev, libevdev-dev, libinput-dev, libdrm-dev, libwlroots-dev, scdoc, git, wget, cmake
+Recommends: swaybg, swayidle, swaylock
+Suggests: dmenu, grim, slurp
+Maintainer: Vysakh Premkumar <vysakhpr218@gmail.com>
+Description: Sway with eye candy (based on Sway 1.7)
+ Swayfx is an improved version of the Sway tiling Wayland compositor, based on
+ Sway 1.7. It serves as a drop-in replacement for i3, maintaining compatibility
+ while adding visual enhancements. Swayfx features an fx_renderer that supports
+ basic GLES2 effects, providing a more visually appealing desktop experience.
